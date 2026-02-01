@@ -2,100 +2,104 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>GGMU</title>
+<title>Glory Man United</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: white;
+        font-family: 'Arial Black', sans-serif;
+        overflow: hidden;
+        text-align: center;
+    }
 
-/* LOGO SCREEN */
-#logoScreen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-}
+    /* Logo Screen */
+    #logoScreen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        cursor: pointer;
+    }
 
-#logo {
-  width: 200px;
-  cursor: pointer;
-}
+    #logoScreen img {
+        width: 200px;
+        animation: pulse 2s infinite;
+    }
 
-/* MAIN SCREEN */
-#mainScreen {
-  display: none;
-  height: 100vh;
-  width: 100%;
-  background: url("bg.jpg") no-repeat center center fixed;
-  background-size: cover;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+        100% { transform: scale(1); }
+    }
 
-/* TEXT */
-.line {
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff2b2b;
-  text-shadow:
-    0 0 10px #ff0000,
-    0 0 20px #ff0000,
-    0 0 40px #aa0000;
-  opacity: 0;
-  transform: translateY(30px);
-}
+    /* Main Screen */
+    #mainScreen {
+        display: none;
+        height: 100vh;
+        background: url("stadium.jpg") no-repeat center center/cover;
+    }
 
-.show {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.9s ease;
-}
+    #overlay {
+        background: rgba(0,0,0,0.6);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .line {
+        font-size: 32px;
+        opacity: 0;
+        animation: wave 1.5s ease forwards;
+        text-shadow: 
+            0 0 5px red,
+            0 0 10px red,
+            0 0 20px darkred;
+    }
+
+    @keyframes wave {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 </head>
 
 <body>
 
-<!-- LOGO ONLY -->
+<!-- Logo Screen -->
 <div id="logoScreen">
-  <img id="logo" src="logo.png" alt="Logo" onclick="startShow()">
+    <img src="logo.png" alt="Manchester United Logo">
 </div>
 
-<!-- BACKGROUND + TEXT -->
+<!-- Main Screen -->
 <div id="mainScreen">
-  <div class="line">GLORY GLORY</div>
-  <div class="line">MAN UNITED</div>
-  <div class="line">AS THE REDS GO</div>
-  <div class="line">MARCHING ON</div>
+    <div id="overlay">
+        <div class="line" style="animation-delay: 0.3s;">GLORY</div>
+        <div class="line" style="animation-delay: 0.9s;">GLORY</div>
+        <div class="line" style="animation-delay: 1.5s;">MANCHESTER</div>
+        <div class="line" style="animation-delay: 2.1s;">UNITED</div>
+    </div>
 </div>
 
 <script>
-function startShow() {
-  // hide logo
-  document.getElementById("logoScreen").style.display = "none";
+    const logoScreen = document.getElementById("logoScreen");
+    const mainScreen = document.getElementById("mainScreen");
 
-  // show main screen
-  const main = document.getElementById("mainScreen");
-  main.style.display = "flex";
-
-  // animate text line by line
-  const lines = document.querySelectorAll(".line");
-  lines.forEach((line, index) => {
-    setTimeout(() => {
-      line.classList.add("show");
-    }, index * 700);
-  });
-}
+    logoScreen.addEventListener("click", () => {
+        logoScreen.style.display = "none";
+        mainScreen.style.display = "block";
+    });
 </script>
 
 </body>
