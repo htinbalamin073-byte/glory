@@ -99,7 +99,7 @@ body{
 <body>
 
 <!-- AUDIO -->
-<audio id="anthem" src="ggmu.mp3"></audio>
+<audio id="anthem" src="ggmu.mp3" preload="auto" playsinline></audio>
 
 <!-- INTRO -->
 <div id="intro">
@@ -119,14 +119,22 @@ body{
 </div>
 
 <script>
-document.getElementById("logo").onclick = function(){
-  document.getElementById("intro").style.display = "none";
-  document.getElementById("main").style.display = "block";
+const logo = document.getElementById("logo");
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
+const song = document.getElementById("anthem");
 
-  const song = document.getElementById("anthem");
+logo.addEventListener("click", () => {
+  intro.style.display = "none";
+  main.style.display = "block";
+
   song.volume = 0.8;
-  song.play();
-};
+  song.loop = true;
+
+  song.play().catch(err => {
+    console.log("Audio blocked:", err);
+  });
+});
 </script>
 
 </body>
