@@ -2,132 +2,117 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glory Glory Man United</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: url("stadium.jpg") no-repeat center center fixed;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{height:100vh;background:black;overflow:hidden}
 
 /* INTRO */
-#intro {
-  text-align: center;
+#intro{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  background:black; z-index:10;
+}
+#intro img{
+  width:180px; cursor:pointer;
+  animation:pulse 1.8s infinite;
+}
+#tap{
+  margin-top:15px;
+  color:red;
+  font-size:18px;
+  text-shadow:0 0 10px red;
 }
 
-#logo {
-  width: 180px;
-  cursor: pointer;
-  transition: transform 0.3s;
+/* MAIN */
+#main{
+  display:none;
+  height:100vh;
+  background:url('stadium.jpg') center/cover no-repeat;
+  position:relative;
 }
-
-#logo:hover {
-  transform: scale(1.1);
-}
-
-#hint {
-  margin-top: 12px;
-  color: white;
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* MAIN CONTENT */
-#main {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* SCORE OVERLAY */
-#score {
-  width: 85%;
-  max-width: 420px;
-  margin-bottom: 25px;
-  opacity: 0;
-  animation: fadeDown 1.5s forwards;
-  box-shadow: 0 0 25px rgba(255,0,0,0.6);
-  border-radius: 12px;
+.overlay{
+  position:absolute; inset:0;
+  background:rgba(0,0,0,0.55);
 }
 
 /* TEXT */
-.line {
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff2b2b;
-  text-shadow:
-    0 0 10px red,
-    0 0 20px red,
-    0 0 40px darkred;
-  opacity: 0;
-  margin: 6px 0;
-  animation: wave 2s infinite;
+.text{
+  position:absolute;
+  top:20%; width:100%;
+  text-align:center;
+  color:red;
+  font-size:32px;
+  letter-spacing:3px;
+  animation:wave 2s infinite;
+  text-shadow:0 0 15px red;
+}
+
+/* SCORE */
+.score{
+  position:absolute;
+  bottom:15%;
+  width:100%;
+  text-align:center;
+}
+.score img{
+  width:280px;
+  animation:slideUp 1.2s ease;
 }
 
 /* ANIMATIONS */
-@keyframes fadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.1)}
 }
-
-@keyframes wave {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+@keyframes wave{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
 }
-
-.show {
-  opacity: 1;
-  transition: opacity 1s;
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(40px)}
+  to{opacity:1; transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO SCREEN -->
+<!-- AUDIO -->
+<audio id="anthem" src="ggmu.mp3"></audio>
+
+<!-- INTRO -->
 <div id="intro">
   <img src="logo.png" id="logo">
-  <div id="hint">Tap the logo</div>
+  <div id="tap">Tap the logo</div>
 </div>
 
-<!-- MAIN SCREEN -->
+<!-- MAIN -->
 <div id="main">
-  <img src="score.png" id="score">
+  <div class="overlay"></div>
 
-  <div class="line">GLORY GLORY</div>
-  <div class="line">MAN UNITED</div>
-  <div class="line">AS THE REDS GO MARCHING ON</div>
+  <div class="text">
+    GLORY GLORY<br>MAN UNITED
+  </div>
+
+  <div class="score">
+    <img src="score.png">
+  </div>
 </div>
 
 <script>
-const logo = document.getElementById("logo");
-const intro = document.getElementById("intro");
-const main = document.getElementById("main");
-const lines = document.querySelectorAll(".line");
+document.getElementById("logo").onclick = function(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("main").style.display="block";
 
-logo.addEventListener("click", () => {
-  intro.style.display = "none";
-  main.style.display = "flex";
-
-  lines.forEach((line, index) => {
-    setTimeout(() => {
-      line.classList.add("show");
-    }, index * 900);
-  });
-});
+  const song = document.getElementById("anthem");
+  song.volume = 0.8;
+  song.play();
+};
 </script>
 
 </body>
