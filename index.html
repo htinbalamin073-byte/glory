@@ -8,32 +8,44 @@
 body {
   margin: 0;
   height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* LOGO SCREEN */
+#logoScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+#logo {
+  width: 200px;
+  cursor: pointer;
+}
+
+/* MAIN SCREEN */
+#mainScreen {
+  display: none;
+  height: 100vh;
+  width: 100%;
   background: url("bg.jpg") no-repeat center center fixed;
   background-size: cover;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: Arial, sans-serif;
 }
 
-/* LOGO */
-#logo {
-  width: 180px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-/* TEXT BOX */
-#lyrics {
-  margin-top: 30px;
-  z-index: 3;
-}
-
-/* EACH LINE */
+/* TEXT */
 .line {
-  font-size: 34px;
+  font-size: 36px;
   font-weight: bold;
   color: #ff2b2b;
   text-shadow:
@@ -41,30 +53,42 @@ body {
     0 0 20px #ff0000,
     0 0 40px #aa0000;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
 }
 
-/* SHOW ANIMATION */
 .show {
   opacity: 1;
   transform: translateY(0);
-  transition: all 0.8s ease;
+  transition: all 0.9s ease;
 }
 </style>
 </head>
 
 <body>
 
-<img id="logo" src="logo.png" alt="Logo" onclick="showText()">
+<!-- LOGO ONLY -->
+<div id="logoScreen">
+  <img id="logo" src="logo.png" alt="Logo" onclick="startShow()">
+</div>
 
-<div id="lyrics">
+<!-- BACKGROUND + TEXT -->
+<div id="mainScreen">
   <div class="line">GLORY GLORY</div>
   <div class="line">MAN UNITED</div>
-  <div class="line">AS THE REDS GO MARCHING ON</div>
+  <div class="line">AS THE REDS GO</div>
+  <div class="line">MARCHING ON</div>
 </div>
 
 <script>
-function showText() {
+function startShow() {
+  // hide logo
+  document.getElementById("logoScreen").style.display = "none";
+
+  // show main screen
+  const main = document.getElementById("mainScreen");
+  main.style.display = "flex";
+
+  // animate text line by line
   const lines = document.querySelectorAll(".line");
   lines.forEach((line, index) => {
     setTimeout(() => {
