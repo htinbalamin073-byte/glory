@@ -1,44 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>GGMU</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: black;
-      cursor: pointer;
-    }
+<html>
+<body>
 
-    body.active {
-      background: url('bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
+<button onclick="play()">PLAY MUSIC</button>
 
-    img {
-      width: 200px;
-    }
-  </style>
-</head>
-<body onclick="playSong()">
+<audio id="a" src="ggmu.mp3"></audio>
 
-  <img src="logo.png" alt="logo">
-
-  <audio id="song">
-    <source src="ggmu.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    function playSong() {
-      document.body.classList.add("active");
-      const audio = document.getElementById("song");
-      audio.play();
-    }
-  </script>
+<script>
+function play(){
+  document.getElementById("a").play();
+}
+</script>
 
 </body>
 </html>
