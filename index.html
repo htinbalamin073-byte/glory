@@ -98,15 +98,12 @@ body{
 
 <body>
 
-<!-- AUDIO (တစ်ခုတည်းပဲ ထား) -->
-<audio id="anthem" preload="auto" playsinline>
-  <source src="ggmu.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+<!-- AUDIO -->
+<audio id="anthem" src="ggmu.mp3"></audio>
 
 <!-- INTRO -->
 <div id="intro">
-  <img src="logo.png" id="logo" alt="Logo">
+  <img src="logo.png" id="logo">
   <div id="tap">Tap the logo</div>
 </div>
 
@@ -117,27 +114,19 @@ body{
     GLORY GLORY<br>MAN UNITED
   </div>
   <div class="score">
-    <img src="score.png" alt="Score">
+    <img src="score.png">
   </div>
 </div>
 
 <script>
-const logo = document.getElementById("logo");
-const intro = document.getElementById("intro");
-const main = document.getElementById("main");
-const song = document.getElementById("anthem");
+document.getElementById("logo").onclick = function(){
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main").style.display = "block";
 
-logo.addEventListener("click", () => {
-  intro.style.display = "none";
-  main.style.display = "block";
-
+  const song = document.getElementById("anthem");
   song.volume = 0.8;
-  song.loop = true;
-
-  song.play().catch(err => {
-    console.log("Audio play blocked:", err);
-  });
-});
+  song.play();
+};
 </script>
 
 </body>
