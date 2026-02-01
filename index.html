@@ -1,82 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Glory Glory Man United</title>
+  <meta charset="UTF-8">
+  <title>GGMU</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      cursor: pointer;
+    }
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: black;
-  color: white;
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    body.active {
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
 
-#main {
-  display: none;
-  width: 100%;
-  height: 100%;
-  background-image: url('bg.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.overlay {
-  background: rgba(0,0,0,0.55);
-  width: 100%;
-  height: 100%;
-  padding-top: 60px;
-}
-
-.logo {
-  width: 200px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.logo:hover {
-  transform: scale(1.1);
-}
-
-h1 {
-  margin-top: 20px;
-  letter-spacing: 2px;
-}
-</style>
+    img {
+      width: 200px;
+    }
+  </style>
 </head>
+<body onclick="playSong()">
 
-<body>
+  <img src="logo.png" alt="logo">
 
-<!-- START SCREEN -->
-<div id="start">
-  <img src="logo.png" class="logo" onclick="startSite()" />
-  <h2>Tap the logo</h2>
-</div>
+  <audio id="song">
+    <source src="ggmu.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- MAIN SITE -->
-<div id="main">
-  <div class="overlay">
-    <h1>GLORY GLORY MAN UNITED</h1>
-    <p>Welcome to golory.com 🔴</p>
-
-    <audio id="music" loop>
-      <source src="ggmu.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-</div>
-
-<script>
-function startSite() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("main").style.display = "block";
-  document.getElementById("music").play();
-}
-</script>
+  <script>
+    function playSong() {
+      document.body.classList.add("active");
+      const audio = document.getElementById("song");
+      audio.play();
+    }
+  </script>
 
 </body>
 </html>
